@@ -2,45 +2,53 @@ class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
 
-        int n = nums.size();
-        int low = 0;
-        int high = n-1;
+        int low = 1;
+        int high = nums.size() - 2;
+        int mid;
 
-        int mid ;
-        int b;
-
-        if(n==1){
+        if(nums.size() == 1){
             return nums[0];
         }
 
+        if(nums[0] != nums[1]){ //edge cases
+            return nums[0];
+        }
+
+        if(nums[(nums.size()) -1] != nums[(nums.size()) -2] ){
+            return nums[nums.size()-1];  //edge cases
+        }
+
         while(low<=high){
-            if(low == high){
-                return nums[low];
-            }
             mid = (low+high)/2;
-            if(nums[mid] == nums[mid+1]){
-                nums.erase(nums.begin() + mid,nums.begin()+ (mid+2));
-                low = 0;
-                high = high -2;
-                continue;
+
+            if((nums[mid] != nums[mid + 1])  &&  (nums[mid] != nums[mid-1])){
+                return nums[mid];
+
             }
 
-            else if(nums[mid] == nums[mid-1]){
-                nums.erase(nums.begin() + (mid-1),nums.begin()+ (mid+1));
-                low = 0;
-                high = high -2;
-                continue;
+            if((mid%2) != 0){
+                if(nums[mid] == nums[mid+1]){
+                    high = mid - 1;
+
+                }
+                else{
+                    low = mid + 1;
+                }
             }
+
             else{
-                 b = nums[mid];
-                break;
-            }
+                 if(nums[mid] != nums[mid+1]){
+                    high = mid - 1;
 
+                }
+                else{
+                    low = mid + 1;
+                }
+
+            }
 
         }
-return b;
-
-        
+        return 0;
 
         
     }
