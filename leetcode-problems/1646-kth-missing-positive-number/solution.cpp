@@ -1,48 +1,41 @@
 class Solution {
 public:
 
-int sum(int mid,int n, vector<int>& arr){
-    int s = 0;
-    int re = 0;
-    
-    for(int i= 0;i<n;i++){
-        if(arr[i]<=mid){
-            s++ ;
-        }
-        else{
-            re ++ ;
-        }
-        
-
-    }
-    int g = n- re;
-    int y = mid - g;
-    return y ;
-}
-    int findKthPositive(vector<int>& arr, int k) {
-
-
+   int findKthPositive(vector<int>& arr, int k) {
 
         int n = arr.size();
-        int low = 1;
-        int max = *max_element(arr.begin(),arr.end());
-
-        int high = max + k;
+        int low = 0;
+        int high = n-1;
         int mid;
-        int r;
+        int missing;
 
         while(low<=high){
             mid = (low+high)/2;
-            r = sum(mid,n,arr);
-      
+            missing = arr[mid]-(mid+1);
 
-            if(r < k){
+            if(missing < k){
                 low = mid + 1;
             }
-
-            else{ high = mid - 1;}
+            else{
+                high = mid -1;
+            }
+                  
 
         }
-        return low;
+          //now high and low point to numbers that have kth missing number in between them with high before low i.e low = high + 1
+
+
+       // int a = arr[high] -(high + 1); show that itne missing numbers ho chuke hai
+       // int more = k-a
+       //int ans = arr[high] + more
+       //        = arr[high] + k - a
+       //        = arr[high] + k - (arr[high] -(high + 1)) 
+       //        = k + high + 1 
+       //        = k + low
+
+       // we could write the first line but high can be -1 so arr[high] will give an error
+
+       return (k + high + 1);
+
     }
 };
