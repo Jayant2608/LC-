@@ -10,16 +10,6 @@
  */
 class Solution {
 
-    ListNode* PreviousNode(ListNode* temp , ListNode* a){
-
-        struct ListNode* r = a;
-        while(r-> next != temp)
-        {
-            r = r-> next;
-        }
-        return r;
-    }
-
 public:
     ListNode* reverseList(ListNode* head) {
         if(head == NULL){ //no node
@@ -31,27 +21,23 @@ public:
         }
 
         struct ListNode* temp = head;
-        struct ListNode* a = head;
+        struct ListNode* prev = NULL;
+        struct ListNode* mover = head-> next;
 
-        while(temp -> next != NULL){
-            temp = temp -> next;
-        } //temp points to last node
-
-         struct ListNode* result = temp;
-
-
-         while(temp != head){
-            struct ListNode* prev = PreviousNode(temp , a);
+        while(temp != NULL){
             temp -> next = prev;
-            
-            prev -> next = NULL; //
+            prev = temp;
+            temp = mover;
+           
+           if(mover == NULL){
+            break;
+           }
+            mover = mover->next;
+        }
 
-            temp = prev;
-         }
-
-         return result;
+        return prev;
 
 
-        
+
     }
 };
