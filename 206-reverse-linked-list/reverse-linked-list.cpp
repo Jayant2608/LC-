@@ -12,31 +12,20 @@ class Solution {
 
 public:
     ListNode* reverseList(ListNode* head) {
-        if(head == NULL){ //no node
-            return NULL;
-        }
+      
+      //striver way iterative method
 
-        if(head -> next == NULL){ // 1 node
-            return head;
-        }
+      struct ListNode* temp = head;
+      struct ListNode* prev = NULL;
 
-        struct ListNode* temp = head;
-        struct ListNode* prev = NULL;
-        struct ListNode* mover = head-> next;
+      while(temp != NULL){
+        struct ListNode* front = temp -> next;
+        temp -> next = prev;
+        prev = temp ;
+        temp = front;
+      }
 
-        while(temp != NULL){
-            temp -> next = prev;
-            prev = temp;
-            temp = mover;
-           
-           if(mover == NULL){
-            break;
-           }
-            mover = mover->next;
-        }
-
-        return prev;
-
+      return prev;
 
 
     }
