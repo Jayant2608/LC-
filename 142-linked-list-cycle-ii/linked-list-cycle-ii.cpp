@@ -18,23 +18,24 @@ public:
             fast = fast->next->next;
 
             if(slow == fast){
-                break;
-            }
-        }
+                slow = head;
 
-        if(slow != fast || fast == NULL || fast -> next == NULL){ //no cycle exists
-            return NULL;
-        }
-
-
-        slow = head;
-
-        while(slow != fast){
+                  while(slow != fast){
             slow = slow ->next;
             fast = fast -> next;
            }
+           return fast;
+            }
+        }
 
-        return fast;
+            return NULL;
+        
+
+
+        
+
+      
+
 
 
       
