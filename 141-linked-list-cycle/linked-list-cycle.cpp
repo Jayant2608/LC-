@@ -12,31 +12,23 @@ class Solution {
 public:
     bool hasCycle(ListNode *head) {
 
-        if((head  == NULL)  || (head -> next == NULL)){
-            return false;
-        }
+        //striver method using fast and slow pointers
 
+        struct ListNode* slow = head;
+        struct ListNode* fast = head;
 
-        struct ListNode* temp = head;
-        struct ListNode* prev = NULL;
+        while(fast != NULL && fast -> next != NULL){
+            slow = slow -> next;
+            fast = fast->next->next;
 
-        set<struct ListNode* > a;
-        
-
-int c = 0;
-
-        while(temp != NULL){
-            prev = temp ;
-            a.insert(prev);
-            c++ ;
-            if(a.size() != c){
+            if(slow == fast){
                 return true;
             }
-      
-            temp = temp -> next;
-
         }
+
         return false;
+
+
 
     }
 };
