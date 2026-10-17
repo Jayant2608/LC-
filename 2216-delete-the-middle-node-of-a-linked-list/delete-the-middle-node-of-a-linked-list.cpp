@@ -12,45 +12,25 @@ class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) {
 
-        if(head -> next == NULL){
-            return NULL; //don't need to delete the head just return the NULL
-        }
+      //striver method using slow and fast pointers
 
-struct ListNode* temp = head;
-        int c = 0;
-        while(temp != NULL){
-            temp = temp -> next ;
-            c ++;
-        }
+      if(head ->next == NULL)
+      return NULL;
 
-        if(c == 2){
-            delete head->next ;
-            head -> next = NULL;
-            return head;
-        }
+      struct ListNode* slow = head;
+      struct ListNode* fast = head;
 
-        if(c == 3){
-            struct ListNode* a = head->next->next;
-            delete head -> next;
-            head -> next = a;
-            return head;
-        }
+      while(fast->next->next != NULL && fast->next->next->next != NULL){
+        slow = slow ->next;
+        fast = fast ->next->next;
+      }
 
-        temp = head;
-        int mid = (c/2) - 1;
+      struct ListNode* del = slow -> next;
+      slow -> next = slow ->next ->next;
 
-        while((mid) > 0){
-            temp = temp -> next;
-            mid -- ;
+      delete del;
 
-        }
-struct ListNode* n1 = temp->next->next ;
-delete (temp->next);
-
-        temp -> next = n1;
-
-        
-        return head;
+      return head;
 
 
 
