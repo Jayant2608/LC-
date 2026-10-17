@@ -12,69 +12,33 @@ class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
 
-        if(head == NULL){ //0 node
-            return NULL;
-        }
+     //optimised way
 
-        if(head -> next == NULL || head->next->next == NULL){ //1 or 2 nodes
-            return head;
-        }
+     if(head == NULL || head -> next == NULL){
+        return head;
+     }
 
-        int c = 0;
-        struct ListNode* mover = head;
+     struct ListNode* first = head;
+     struct ListNode* second = head -> next;
+     struct ListNode* store = second;
 
-        while(mover != NULL){
-            mover = mover -> next;
-            c++;
-        }
+     while(second != NULL){
+        first ->next = second -> next;
+        if(second -> next != NULL){
+        second -> next = second->next->next;}
 
-        struct ListNode* temp = head->next->next;
+if(first -> next != NULL){
+        first = first -> next;}
 
+        second = second -> next;
+        
 
+     }
+     first -> next = store;
 
-struct ListNode* q = head->next ;
-
-vector<int> v;
-
-struct ListNode* even = head->next ;
-
-while(even != NULL){
-    v.emplace_back(even -> val);
-
-    if((even -> next == NULL) || (even->next->next == NULL)){
-        break;
-    }
-    even = even ->next->next;
-}
+     return head;
 
 
-
-while((temp!= NULL)){
-    
-    int a = temp-> val;
-    temp -> val = q -> val;
-    q-> val = a;
-
-     q = q-> next;
-
-    if(temp -> next == NULL ||  (temp->next->next == NULL)){
-        break;
-    }
-
-    temp = temp ->next-> next;
-   
-
-}
-
-   for(int i = 0;i<v.size();i++){
-
-    if(q != NULL){
-    q->val = v[i];
-    q = q-> next;
-    }
-
-   }
-    return head ;
 
     }
 };
