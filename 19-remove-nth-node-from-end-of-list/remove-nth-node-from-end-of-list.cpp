@@ -12,43 +12,36 @@ class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
 
-        if(head -> next == NULL){
-            return NULL;
+        //striver optimised way using slow and fast pointers 
+        //by using this we don't first need to calc number of nodes in a LL
+
+        struct ListNode* fast = head;
+
+        for(int i = 0;i< n;i++){
+            fast = fast -> next; // we do this to prevent counting number of nodes of LL
         }
+
+        struct ListNode* slow = head;
+
+if(fast == NULL){ //edge case
+            return head -> next;
+        }
+
+        while(fast->next != NULL){
+            slow = slow -> next;
+            fast = fast -> next;
+        }
+
+        //slow now points before the node to be deleted
 
         
 
-        struct ListNode* mover = head;
-        int c = 0;
+        struct ListNode* del = slow -> next;
+        slow -> next = slow -> next->next;
+        delete (del);
 
-        while(mover != NULL){
-            mover = mover -> next;
-            c++ ;
-        }
-        mover = head;
-
-        int k = (c-n) + 1; //kth node from starting
-
-        if(k == 1){
-            head = mover -> next;
-            delete mover;
-            return head;
-        }
-
-        struct ListNode* prev = NULL;
-
-
-        while((k-1)>0){
-            prev = mover;
-            mover = mover -> next;
-            k --;
-
-        }
-
-        struct ListNode* n1 = mover -> next;
-        delete mover;
-        prev -> next = n1;
         return head;
+
         
     }
 };
